@@ -106,6 +106,7 @@
             <TextField id="searchField" fx:id="searchField" layoutX="257.0" layoutY="26.0" prefHeight="24.0" prefWidth="270.0" />
             <Button id="searchBtn" layoutX="537.0" layoutY="26.0" mnemonicParsing="false" onAction="#searchProducts" text="Search" />
             <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#backToMenu" text="Menu" />
+            <Button layoutX="105.0" layoutY="25.0" mnemonicParsing="false" onAction="#openDetailProduct" prefHeight="21.0" prefWidth="120.0" style="-fx-background-color: #FAC931;" text="Creer Article" textFill="WHITE" />
       </children>
     </AnchorPane>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />

@@ -13,6 +13,7 @@ import com.example.DAO.VenteDAO;
 import com.example.Models.Reception;
 import com.example.Models.ReceptionLine;
 import com.example.Models.Vente;
+import com.example.provider.VenteProvider;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class VenteController implements Initializable {
+    @FXML
+    private TextField searchField;
     @FXML
     private TableView<Vente> venteTable;
     @FXML
@@ -52,13 +55,15 @@ public class VenteController implements Initializable {
             if (event.getClickCount() == 2) {
                 try {
                     FXMLLoader loader = new FXMLLoader(
-                            App.class.getResource("ReceptionDetails.fxml"));
+                            App.class.getResource("DetailVente.fxml"));
                     Parent root = loader.load();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
-                    stage.setTitle("Reception Details");
+                    stage.setTitle("Vente Details");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
+                    // set current vente in the provider
+                    VenteProvider.setCurrentVente(venteTable.getSelectionModel().getSelectedItem());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -72,6 +77,7 @@ public class VenteController implements Initializable {
         dateVente.setCellValueFactory(new PropertyValueFactory<Vente, Date>("date"));
 
         venteTable.setItems(ventes);
+        VenteProvider.setVentes(ventes);
     }
 
     @FXML
@@ -84,13 +90,31 @@ public class VenteController implements Initializable {
     }
 
     @FXML
-    void searchReceptions() {
+    void openAddWindow() {
+        try {
+            Parent root = FXMLLoader.load(App.class.getResource("DetailVente.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void openAddWindow() {
+    void searchVentes() {
+        String query = searchField.getText();
+        ventes = VenteDAO.search(query);
+        venteTable.setItems(ventes);
+        VenteProvider.setVentes(ventes);
+    }
+
+    @FXML
+    void openCreateProduct() {
         try {
-            Parent root = FXMLLoader.load(App.class.getResource("AddReception.fxml"));
+            Parent root = FXMLLoader.load(App.class.getResource("DetailVente.fxml"));
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

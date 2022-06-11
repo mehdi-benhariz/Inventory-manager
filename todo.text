@@ -2,7 +2,15 @@
 2-update interface with adding buttons and new columns x
 3-do the search function x
 4-add the delete function x
+5-add an interface for adding new products (reception) -hard X
 6-add an interface for update products x
-5-add an interface for adding new products (reception) -hard
-7-add an interface for selling products (vente)-hard
-8-add interface to browse reception and vente
+7-add an interface for selling products (vente)-hard X
+8-add interface to browse reception and vente X 
+
+additional:
+-finish the search for both reception and vente X
+-UX with closing the window when finished
+-UX with calculating the total price of the products for vente and reception X
+-function to edit reception and vente on double click.
+-in vente details, when chosing reference, the price is automatically updated X
+add product - vergule(bug) X

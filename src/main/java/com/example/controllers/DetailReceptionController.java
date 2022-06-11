@@ -3,7 +3,6 @@ package com.example.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.example.App;
 import com.example.DAO.ProductDAO;
 import com.example.DAO.ReceptionDAO;
 import com.example.DTO.ProductDTO;
@@ -11,6 +10,7 @@ import com.example.Models.Product;
 import com.example.Models.Reception;
 import com.example.Models.ReceptionLine;
 import com.example.provider.ProductProvider;
+import com.example.provider.ReceptionProvider;
 import com.example.utils.Notifiar;
 
 import javafx.collections.FXCollections;
@@ -19,16 +19,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AddReceptionController implements Initializable {
+public class DetailReceptionController implements Initializable {
     @FXML
     private TableView<ReceptionLine> receptionLines;
     @FXML
@@ -41,70 +43,90 @@ public class AddReceptionController implements Initializable {
     TextField refField;
     @FXML
     TextField totalField;
-    ObservableList<String> refs;
     ObservableList<ReceptionLine> lines = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        if (ReceptionProvider.currentReception != null)
+            initReceptionFields();
         initFields();
         initListner();
+    }
+
+    private void initReceptionFields() {
+        refField.setText(ReceptionProvider.currentReception.getRef());
+
+        lines = ReceptionDAO.getLinesByRef(ReceptionProvider.currentReception.getRef());
+        ReceptionProvider.setCurrentLines(lines);
+        receptionLines.setItems(lines);
+        calcTotal();
     }
 
     private void calcTotal() {
         float sum = 0.0f;
         for (ReceptionLine line : lines)
             sum += Integer.parseInt(line.getQuantity().getText()) * Float.parseFloat(line.getPrice().getText());
-
         totalField.setText(String.valueOf(sum));
     }
 
     private void initListner() {
-        // change total value when change quantity and price
-
-        quantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*"))
-                quantity.setText(newValue.replaceAll("[^\\d]", ""));
-            System.out.println(newValue);
-            if (newValue.length() > 0)
-                calcTotal();
-
+        receptionLines.setOnMouseClicked(event -> {
+            calcTotal();
         });
-        price.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*"))
-                price.setText(newValue.replaceAll("[^\\d]", ""));
-
-            if (newValue.length() > 0)
-                calcTotal();
-
-        });
-
-        // }
 
     }
 
     private void initFields() {
-        refs = ReceptionDAO.getAllRef();
+
         ref.setCellValueFactory(new PropertyValueFactory<ReceptionLine, ChoiceBox<String>>("ref"));
         quantity.setCellValueFactory(new PropertyValueFactory<ReceptionLine, TextField>("quantity"));
         price.setCellValueFactory(new PropertyValueFactory<ReceptionLine, TextField>("price"));
         refField.setText("");
 
         receptionLines.setItems(lines);
-        addLine();
+        // change value of ref field when ref is changed
 
     }
 
     private void updateList() {
-        for (ReceptionLine line : lines)
+        for (ReceptionLine line : lines) {
+            ObservableList<String> refs = ProductProvider.getRefs();
             // compare the old list with the new one
             if (!line.getRef().getItems().equals(refs))
-                line.getRef().setItems(refs);
-
+                line.getRef().setItems(ProductProvider.getRefs());
+        }
     }
 
     @FXML
-    void addReception() {
+    void saveChanges() {
+        if (ReceptionProvider.currentReception != null)
+            editReception();
+        else
+            createReception();
+        clear();
+    }
+
+    private void editReception() {
+        String oldRef = ReceptionProvider.currentReception.getRef();
+        if (!refField.getText().equals(oldRef)) {
+            // change ref in reception table
+            ReceptionDAO.updateRef(oldRef, refField.getText());
+        }
+        // update reception lines
+        for (int i = 0; i < lines.size(); i++) {
+            ReceptionLine newLine = lines.get(i);
+            ReceptionLine oldLine = ReceptionProvider.currentLines.get(i);
+            if (!oldLine.equals(newLine)) {
+                ReceptionDAO.updateLine(refField.getText(), oldLine.getRef().getValue(), newLine);
+            }
+        }
+
+        Notifiar.showInfoMsg("modification succes", "Reception updated successfully");
+    }
+
+    private void createReception() {
         Reception r = new Reception(refField.getText());
+
         Boolean res = ReceptionDAO.addReception(r);
         if (res) {
             // create receptions_products
@@ -127,13 +149,17 @@ public class AddReceptionController implements Initializable {
     @FXML
     void addLine() {
         ReceptionLine line = new ReceptionLine(new ChoiceBox<String>(), new TextField(), new TextField());
-        line.getRef().setItems(refs);
+        line.getRef().setItems(ProductProvider.getRefs());
         lines.add(line);
     }
 
     @FXML
     void openCreateProduct() {
 
+    }
+
+    private void clear() {
+        ReceptionProvider.clear();
     }
 
 }

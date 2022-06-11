@@ -5,38 +5,11 @@ import com.example.provider.ProductProvider;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-public class ReceptionLine {
+public class VenteLine {
     ChoiceBox<String> ref;
 
     TextField quantity;
     TextField price;
-
-    // default constructor
-    public ReceptionLine() {
-        ref = new ChoiceBox<String>();
-        ref.setItems(ProductProvider.getRefs());
-        quantity = new TextField();
-        price = new TextField();
-        this.initListners();
-
-    }
-
-    public ReceptionLine(ChoiceBox<String> ref, TextField quantity, TextField price) {
-        this.ref = ref;
-        this.quantity = quantity;
-        this.price = price;
-        this.initListners();
-
-    }
-
-    public ReceptionLine(String ref, int quantity, float price) {
-        // create a new choicebox with the ref
-        this();
-        this.ref.setValue(ref);
-        this.quantity.setText(String.valueOf(quantity));
-        this.price.setText(String.valueOf(price));
-
-    }
 
     public ChoiceBox<String> getRef() {
         return ref;
@@ -62,8 +35,11 @@ public class ReceptionLine {
         this.price = price;
     }
 
-    // default listener
-    public void initListners() {
+    public VenteLine(ChoiceBox<String> ref, TextField quantity, TextField price) {
+        this.ref = ref;
+        this.quantity = quantity;
+        this.price = price;
+        // add a listener to quantity field
         quantity.textProperty().addListener((observable, oldValue, newValue) -> {
             // check if newValue is a number
             if (!newValue.matches("\\d*")) {
@@ -82,18 +58,6 @@ public class ReceptionLine {
                 price.setText(String.valueOf(p.getPrice()));
             }
         });
-
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof ReceptionLine) {
-            ReceptionLine line = (ReceptionLine) obj;
-            return (line.getRef().getValue().equals(this.getRef().getValue())
-                    && line.getQuantity().getText().equals(this.getQuantity().getText())
-                    && line.getPrice().getText().equals(this.getPrice().getText()));
-        }
-        return false;
     }
 
 }

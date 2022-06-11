@@ -6,12 +6,10 @@ public class Vente {
     String ref;
 
     Date date;
-    double quantity;
 
-    public Vente(String ref, Date date, double quantity) {
+    public Vente(String ref, Date date) {
         this.ref = ref;
         this.date = date;
-        this.quantity = quantity;
     }
 
     public String getRef() {
@@ -30,12 +28,8 @@ public class Vente {
         this.date = date;
     }
 
-    public double getQuantity() {
-        return quantity;
+    @Override
+    public String toString() {
+        return "Vente [ref=" + ref + ", date=" + date + "]";
     }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
 }

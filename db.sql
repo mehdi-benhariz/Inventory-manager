@@ -43,3 +43,8 @@ CREATE TABLE ventes_products (
 );
 
 //insert into products values ('1', 'prod1', '10', '10', '10', '8');
+//ALTER TABLE receptions_products ADD CONSTRAINT FOREIGN KEY (ref_product) REFERENCES products(ref) ON UPDATE CASCADE ON DELETE CASCADE;
+//ALTER TABLE receptions_products ADD CONSTRAINT FOREIGN KEY (ref_reception) REFERENCES receptions(ref) ON UPDATE CASCADE ON DELETE CASCADE;
+
+//ALTER TABLE ventes_products ADD CONSTRAINT FOREIGN KEY (ref_product) REFERENCES products(ref) ON UPDATE CASCADE ON DELETE CASCADE;
+//ALTER TABLE ventes_products ADD CONSTRAINT FOREIGN KEY (ref_vente) REFERENCES ventes(ref) ON UPDATE CASCADE ON DELETE CASCADE;

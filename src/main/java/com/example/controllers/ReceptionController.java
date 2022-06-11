@@ -11,6 +11,7 @@ import com.example.App;
 import com.example.DAO.ReceptionDAO;
 import com.example.Models.Reception;
 import com.example.Models.ReceptionLine;
+import com.example.provider.ReceptionProvider;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +29,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ReceptionController implements Initializable {
+    @FXML
+    private TextField searchField;
     @FXML
     private TableView<Reception> receptionTable;
     @FXML
@@ -50,11 +53,11 @@ public class ReceptionController implements Initializable {
             if (event.getClickCount() == 2) {
                 try {
                     FXMLLoader loader = new FXMLLoader(
-                            App.class.getResource("ReceptionDetails.fxml"));
+                            App.class.getResource("DetailReception.fxml"));
+                    ReceptionProvider.setCurrentReception(receptionTable.getSelectionModel().getSelectedItem());
                     Parent root = loader.load();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
-                    stage.setTitle("Reception Details");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
                 } catch (IOException e) {
@@ -83,12 +86,16 @@ public class ReceptionController implements Initializable {
 
     @FXML
     void searchReceptions() {
+        String query = searchField.getText();
+        ObservableList<Reception> res = ReceptionDAO.search(query);
+        receptionTable.setItems(res);
+
     }
 
     @FXML
     void openAddWindow() {
         try {
-            Parent root = FXMLLoader.load(App.class.getResource("AddReception.fxml"));
+            Parent root = FXMLLoader.load(App.class.getResource("DetailReception.fxml"));
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

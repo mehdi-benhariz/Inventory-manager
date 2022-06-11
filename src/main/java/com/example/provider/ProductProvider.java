@@ -4,6 +4,7 @@ import com.example.DAO.ProductDAO;
 import com.example.DTO.ProductDTO;
 import com.example.Models.Product;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ProductProvider {
@@ -30,6 +31,22 @@ public class ProductProvider {
 
     public static void setCurrentProduct(ProductDTO productDTO) {
         ProductProvider.currentProduct = productDTO.getProduct();
+    }
+
+    public static Product getProduct(String ref) {
+        for (ProductDTO p : products)
+            if (p.getRef().equals(ref))
+                return p.getProduct();
+
+        return null;
+    }
+
+    public static ObservableList<String> getRefs() {
+        ObservableList<String> refs = FXCollections.observableArrayList();
+        for (ProductDTO p : products)
+            refs.add(p.getRef());
+
+        return refs;
     }
 
 }

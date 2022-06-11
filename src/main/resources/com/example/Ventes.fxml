@@ -43,7 +43,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.VenteController">
    <children>
       <VBox prefHeight="400.0" prefWidth="640.0">
         <children>
@@ -89,10 +89,10 @@
           <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToMenu" text="Menu" />
-                  <Button layoutX="89.0" layoutY="14.0" mnemonicParsing="false" onAction="#openAddWindow" prefHeight="24.0" prefWidth="97.0" style="-fx-background-color: #4CAF50;" text="Ajout" textFill="WHITE" />
+                  <Button layoutX="89.0" layoutY="14.0" mnemonicParsing="false" onAction="#openAddWindow" prefHeight="24.0" prefWidth="97.0" style="-fx-background-color: #4CAF50;" text="Vend" textFill="WHITE" />
                   <TextField id="searchField" fx:id="searchField" layoutX="244.0" layoutY="14.0" prefHeight="24.0" prefWidth="270.0" />
                   <Button id="searchBtn" layoutX="538.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchVentes" text="Search" />
-                  <TableView fx:id="receptionTable" layoutX="19.0" layoutY="72.0" prefHeight="235.0" prefWidth="591.0">
+                  <TableView fx:id="venteTable" layoutX="19.0" layoutY="72.0" prefHeight="235.0" prefWidth="591.0">
                     <columns>
                       <TableColumn fx:id="refVente" prefWidth="109.0" text="ref Vente" />
                       <TableColumn fx:id="dateVente" prefWidth="107.0" text="date" />

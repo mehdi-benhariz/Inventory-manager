@@ -74,8 +74,8 @@ public class ProductsController implements Initializable {
             TableRow<ProductDTO> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    ProductDTO rowData = row.getItem();
-                    System.out.println("Double click on: " + rowData);
+                    // ProductDTO rowData = row.getItem();
+                    // System.out.println("Double click on: " + rowData);
                     ProductProvider.setCurrentProduct(row.getItem());
                     // open new window with detail product
                     openDetailProduct();
@@ -85,6 +85,7 @@ public class ProductsController implements Initializable {
         });
     }
 
+    @FXML
     private void openDetailProduct() {
         // open new window with detail product
         try {
@@ -105,6 +106,20 @@ public class ProductsController implements Initializable {
             App.setRoot("Home");
         } catch (IOException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void openCreateProduct() {
+        try {
+            Parent root = FXMLLoader.load(App.class.getResource("CreateProduct.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
