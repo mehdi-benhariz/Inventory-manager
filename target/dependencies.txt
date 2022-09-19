@@ -1,0 +1,23 @@
+digraph "com.example:demo:jar:1.0-SNAPSHOT" { 
+	"com.example:demo:jar:1.0-SNAPSHOT" -> "org.openjfx:javafx-controls:jar:12.0.2:compile" ; 
+	"com.example:demo:jar:1.0-SNAPSHOT" -> "org.openjfx:javafx-fxml:jar:13:compile" ; 
+	"com.example:demo:jar:1.0-SNAPSHOT" -> "mysql:mysql-connector-java:jar:8.0.30:compile" ; 
+	"org.openjfx:javafx-controls:jar:12.0.2:compile" -> "org.openjfx:javafx-controls:jar:linux:12.0.2:compile" ; 
+	"org.openjfx:javafx-controls:jar:12.0.2:compile" -> "org.openjfx:javafx-graphics:jar:12.0.2:compile" ; 
+	"org.openjfx:javafx-graphics:jar:12.0.2:compile" -> "org.openjfx:javafx-graphics:jar:linux:12.0.2:compile" ; 
+	"org.openjfx:javafx-graphics:jar:12.0.2:compile" -> "org.openjfx:javafx-base:jar:12.0.2:compile" ; 
+	"org.openjfx:javafx-base:jar:12.0.2:compile" -> "org.openjfx:javafx-base:jar:linux:12.0.2:compile" ; 
+	"org.openjfx:javafx-fxml:jar:13:compile" -> "org.openjfx:javafx-fxml:jar:linux:13:compile" ; 
+	"mysql:mysql-connector-java:jar:8.0.30:compile" -> "com.google.protobuf:protobuf-java:jar:3.19.4:compile" ; 
+ } digraph "com.example:demo:jar:1.0-SNAPSHOT" { 
+	"com.example:demo:jar:1.0-SNAPSHOT" -> "org.openjfx:javafx-controls:jar:12.0.2:compile" ; 
+	"com.example:demo:jar:1.0-SNAPSHOT" -> "org.openjfx:javafx-fxml:jar:13:compile" ; 
+	"com.example:demo:jar:1.0-SNAPSHOT" -> "mysql:mysql-connector-java:jar:8.0.30:compile" ; 
+	"org.openjfx:javafx-controls:jar:12.0.2:compile" -> "org.openjfx:javafx-controls:jar:linux:12.0.2:compile" ; 
+	"org.openjfx:javafx-controls:jar:12.0.2:compile" -> "org.openjfx:javafx-graphics:jar:12.0.2:compile" ; 
+	"org.openjfx:javafx-graphics:jar:12.0.2:compile" -> "org.openjfx:javafx-graphics:jar:linux:12.0.2:compile" ; 
+	"org.openjfx:javafx-graphics:jar:12.0.2:compile" -> "org.openjfx:javafx-base:jar:12.0.2:compile" ; 
+	"org.openjfx:javafx-base:jar:12.0.2:compile" -> "org.openjfx:javafx-base:jar:linux:12.0.2:compile" ; 
+	"org.openjfx:javafx-fxml:jar:13:compile" -> "org.openjfx:javafx-fxml:jar:linux:13:compile" ; 
+	"mysql:mysql-connector-java:jar:8.0.30:compile" -> "com.google.protobuf:protobuf-java:jar:3.19.4:compile" ; 
+ } 
